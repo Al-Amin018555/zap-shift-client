@@ -1,6 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 @plugin "daisyui";
-@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+@plugin "daisyui/theme" {
+    name: "light";
+    default: true;
+    /* ১. ব্র্যান্ড কালার (Hex Code সহ) */
+    --color-primary: #CAEB66;
+    --color-primary-content: #1F1F1F;
+    /* প্রাইমারি বাটনের ওপর লেখা */
+
+    --color-secondary: #03373D;
+    --color-secondary-content: #ffffff;
+
+    --color-accent: #33929D;
+    --color-accent-content: #1e293b;
+
+    /* ২. বেস কালার (UI Layout এর জন্য) */
+    --color-base-100: #ffffff;
+    /* মেইন ব্যাকগ্রাউন্ড (পুরো পেজ) */
+    --color-base-200: #1E1E1E;
+    /* কার্ড বা সাইডবারের ব্যাকগ্রাউন্ড */
+    --color-base-300: rgba(255, 255, 255, 0.7);
+    /* ইনপুট ফিল্ড বা বর্ডারের কালার */
+    --color-base-content: #606060;
+ 
+    --color-success: #22c55e;
+    --color-error: #ef4444;
+    --color-info: #3b82f6;
+
+
+}
 
 body {
     font-family: "Urbanist", sans-serif;
