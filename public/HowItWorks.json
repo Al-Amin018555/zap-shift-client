@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "icon": "LiaShippingFastSolid",
+    "title": "Booking Pick & Drop",
+    "description": "Schedule parcel pickup and delivery easily from your location with fast and secure service."
+  },
+  {
+    "id": 2,
+    "icon": "FaMoneyBillWave",
+    "title": "Cash On Delivery",
+    "description": "Provide customers with secure cash on delivery payment options and reliable collection service."
+  },
+  {
+    "id": 3,
+    "icon": "FaStore",
+    "title": "Delivery Hub",
+    "description": "Efficient parcel management through organized delivery hubs for faster nationwide shipping."
+  },
+  {
+    "id": 4,
+    "icon": "FaBuilding",
+    "title": "Booking SME & Corporate",
+    "description": "Business delivery solutions for SMEs and corporate companies with dedicated logistics support."
+  }
+]

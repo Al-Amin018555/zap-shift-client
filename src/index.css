@@ -19,12 +19,12 @@
     /* ২. বেস কালার (UI Layout এর জন্য) */
     --color-base-100: #ffffff;
     /* মেইন ব্যাকগ্রাউন্ড (পুরো পেজ) */
-    --color-base-200: #1E1E1E;
+    --color-base-200: #FFFFFF;
     /* কার্ড বা সাইডবারের ব্যাকগ্রাউন্ড */
     --color-base-300: rgba(255, 255, 255, 0.7);
     /* ইনপুট ফিল্ড বা বর্ডারের কালার */
     --color-base-content: #606060;
- 
+
     --color-success: #22c55e;
     --color-error: #ef4444;
     --color-info: #3b82f6;
@@ -36,4 +36,5 @@ body {
     font-family: "Urbanist", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
+    background-color: rgba(194, 194, 194, 0.5);
 }
