@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "icon": "LiaShippingFastSolid",
+        "title": "Express & Standard Delivery",
+        "description": "Fast and reliable express and standard delivery services for personal and business parcels across the city."
+    },
+    {
+        "id": 2,
+        "icon": "FaGlobeAsia",
+        "title": "Nationwide Delivery",
+        "description": "Deliver parcels safely to any district in the country with our trusted nationwide delivery network."
+    },
+    {
+        "id": 3,
+        "icon": "FaWarehouse",
+        "title": "Fulfillment Solution",
+        "description": "Complete fulfillment services including storage, packaging, inventory management, and parcel dispatch."
+    },
+    {
+        "id": 4,
+        "icon": "FaMoneyBillWave",
+        "title": "Cash on Home Delivery",
+        "description": "Secure cash collection from customers at the time of delivery with quick payment settlement."
+    },
+    {
+        "id": 5,
+        "icon": "FaBuilding",
+        "title": "Corporate Service / Contract In Logistics",
+        "description": "Customized logistics and transportation solutions for corporate businesses and enterprise clients."
+    },
+    {
+        "id": 6,
+        "icon": "FaUndoAlt",
+        "title": "Parcel Return",
+        "description": "Easy and hassle-free parcel return management system for failed or customer return deliveries."
+    }
+]
