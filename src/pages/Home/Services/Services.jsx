@@ -9,8 +9,6 @@ import {
 import { useEffect, useState } from "react";
 const Services = () => {
     const [services, setServices] = useState([]);
-
-    // Dynamic Icon Function
     const getIcon = (iconName) => {
 
         if (iconName === "LiaShippingFastSolid") {
