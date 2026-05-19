@@ -24,7 +24,7 @@ const Reviews = ({ reviewPromise }) => {
                     disableOnInteraction: false,
                 }}
                 coverflowEffect={{
-                    rotate: 70,
+                    rotate: 30,
                     stretch: "50%",
                     depth: 200,
                     scale: 0.75,
