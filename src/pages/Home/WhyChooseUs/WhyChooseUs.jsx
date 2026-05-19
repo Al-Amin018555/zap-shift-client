@@ -11,7 +11,7 @@ const WhyChooseUs = () => {
             })
     }, [])
     return (
-        <div className="space-y-4">
+        <div className="space-y-4 mt-20">
             {
                 data.map((data) => <div key={data.id} className="card bg-base-100 rounded-3xl card-sm shadow-sm">
                     <div className="card-body p-8">
