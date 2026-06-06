@@ -6,7 +6,7 @@ import AboutUs from "../pages/AboutUs/AboutUs";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/Auth/Login/Login";
-import Register from "../pages/Auth/Login/Register/Register";
+import Register from "../pages/Auth/Register/Register";
 
 export const router = createBrowserRouter([
   {
