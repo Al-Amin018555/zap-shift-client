@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router";
+import useAuth from "../../../hooks/useAuth";
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
