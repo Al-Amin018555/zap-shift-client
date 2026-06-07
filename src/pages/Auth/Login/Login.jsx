@@ -1,15 +1,22 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import SoicalLogin from "../SocialLogin/SoicalLogin";
 import useAuth from "../../../hooks/useAuth";
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { signIn } = useAuth();
+
+    const location = useLocation();
+    const navigate = useNavigate();
+
     const handelLogin = (data) => {
-        console.log(data);
+       
         signIn(data.email, data.password)
-            .then(res => console.log(res))
+            .then(res => {
+                console.log(res)
+                navigate(location?.state || '/')
+            })
             .catch(err => console.log(err))
     }
     return (
@@ -37,9 +44,9 @@ const Login = () => {
                         <div><a className="link link-hover underline text-blue-400">Forgot password?</a></div>
                         <button className="btn btn-neutral mt-2">Login</button>
                     </fieldset>
-                    <p className="mt-2">Don’t have any account? <Link to='/register' className="underline text-blue-400">Register</Link></p>
+                    <p className="mt-2">Don’t have any account? <Link state={location?.state} to='/register' className="underline text-blue-400">Register</Link></p>
                 </form>
-                <SoicalLogin></SoicalLogin>
+                <SoicalLogin state={location?.state}></SoicalLogin>
             </div>
         </div>
     );

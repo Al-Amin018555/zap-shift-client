@@ -7,6 +7,8 @@ import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register/Register";
+import PrivateRoutes from './PrivateRoutes';
+import Rider from "../pages/Rider/Rider";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +21,10 @@ export const router = createBrowserRouter([
         path: 'coverage',
         Component: Coverage,
         loader: () => fetch('serviceCenters.json').then(res => res.json()),
+      },
+      {
+        path: 'rider',
+        element: <PrivateRoutes><Rider></Rider></PrivateRoutes>,
       },
       {
         path: 'aboutUs',

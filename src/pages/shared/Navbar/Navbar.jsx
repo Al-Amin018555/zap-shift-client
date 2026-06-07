@@ -42,7 +42,7 @@ const Navbar = () => {
                         <button onClick={() => logOut()} className="btn btn-outline rounded-xl hover:btn-primary">Log Out</button> :
                         <Link to='/login' className="btn btn-outline rounded-xl hover:btn-primary">Login</Link>
                 }
-                <Link to='/' className="btn btn-primary rounded-xl ml-4">Be a rider</Link>
+                <Link to='/rider' className="btn btn-primary rounded-xl ml-4">Be a rider</Link>
             </div>
         </div>
     );

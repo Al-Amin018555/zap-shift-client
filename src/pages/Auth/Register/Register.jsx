@@ -1,12 +1,16 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import SoicalLogin from "../SocialLogin/SoicalLogin";
 import useAuth from "../../../hooks/useAuth";
 import axios from "axios";
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { createUser, updateUserProfile } = useAuth()
+    const { createUser, updateUserProfile } = useAuth();
+
+    const location = useLocation();
+    const navigate = useNavigate();
+
     const handelRegister = (data) => {
 
         const imageFile = data.photo[0];
@@ -22,7 +26,7 @@ const Register = () => {
                 axios.post(imageUploadUrl, formData)
                     .then((res) => {
                         console.log("after image upload", res.data.data.display_url)
-                        
+
                         //update profile in firebase
                         const updateProfile = {
                             displayName: data.name,
@@ -30,13 +34,15 @@ const Register = () => {
                         };
 
                         updateUserProfile(updateProfile)
-                            .then()
+                            .then(() => {
+                                navigate(location?.state || '/')
+                            })
                             .catch(err => console.log(err))
 
                     }
 
                     )
-               
+
 
             })
             .catch(err => console.log(err))
@@ -83,7 +89,7 @@ const Register = () => {
                         <button className="btn btn-primary mt-4">Register</button>
 
                     </fieldset>
-                    <p className="mt-2">Already have an account? <Link to="/login" className="text-blue-400 underline">Login</Link></p>
+                    <p className="mt-2">Already have an account? <Link state={location?.state} to="/login" className="text-blue-400 underline">Login</Link></p>
                 </form>
                 <SoicalLogin></SoicalLogin>
             </div>
