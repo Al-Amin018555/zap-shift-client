@@ -2,14 +2,43 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 import SoicalLogin from "../SocialLogin/SoicalLogin";
 import useAuth from "../../../hooks/useAuth";
+import axios from "axios";
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { createUser } = useAuth()
+    const { createUser, updateUserProfile } = useAuth()
     const handelRegister = (data) => {
-        console.log(data);
+
+        const imageFile = data.photo[0];
+
         createUser(data.email, data.password)
-            .then(res => console.log(res))
+            .then(() => {
+
+                const formData = new FormData();
+                formData.append("image", imageFile)
+
+                const imageUploadUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`;
+
+                axios.post(imageUploadUrl, formData)
+                    .then((res) => {
+                        console.log("after image upload", res.data.data.display_url)
+                        
+                        //update profile in firebase
+                        const updateProfile = {
+                            displayName: data.name,
+                            photoURL: res.data.data.display_url,
+                        };
+
+                        updateUserProfile(updateProfile)
+                            .then()
+                            .catch(err => console.log(err))
+
+                    }
+
+                    )
+               
+
+            })
             .catch(err => console.log(err))
     }
     return (
@@ -26,6 +55,14 @@ const Register = () => {
                             {...register("name", { required: true })}
                         />
                         {errors.email?.type === 'required' && <p className="text-red-500">Name is required</p>}
+
+                        <label className="label">Photo</label>
+                        <input type="file"
+                            className="file-input w-full"
+                            placeholder="Name"
+                            {...register("photo", { required: true })}
+                        />
+                        {errors.photo?.type === 'required' && <p className="text-red-500">Photo is required</p>}
                         <label className="label">Email</label>
                         <input type="email"
                             className="input w-full"
@@ -46,7 +83,7 @@ const Register = () => {
                         <button className="btn btn-primary mt-4">Register</button>
 
                     </fieldset>
-                        <p className="mt-2">Already have an account? <Link to="/login" className="text-blue-400 underline">Login</Link></p>
+                    <p className="mt-2">Already have an account? <Link to="/login" className="text-blue-400 underline">Login</Link></p>
                 </form>
                 <SoicalLogin></SoicalLogin>
             </div>

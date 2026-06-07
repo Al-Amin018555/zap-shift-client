@@ -39,9 +39,10 @@ const Navbar = () => {
             <div className="navbar-end">
                 {
                     user ?
-                        <button onClick={() => logOut()} className="btn btn-outline hover:btn-primary">Log Out</button> :
-                        <Link to='/login' className="btn btn-outline hover:btn-primary">Login</Link>
+                        <button onClick={() => logOut()} className="btn btn-outline rounded-xl hover:btn-primary">Log Out</button> :
+                        <Link to='/login' className="btn btn-outline rounded-xl hover:btn-primary">Login</Link>
                 }
+                <Link to='/' className="btn btn-primary rounded-xl ml-4">Be a rider</Link>
             </div>
         </div>
     );
