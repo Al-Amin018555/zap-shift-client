@@ -8,11 +8,10 @@ const Navbar = () => {
 
     const links = <>
         <li><NavLink>Services</NavLink></li>
+        <li><NavLink to='/send-parcel'>Send Parcel</NavLink></li>
         <li><NavLink to='/coverage'>Coverage</NavLink></li>
         <li><NavLink to='/aboutUs'>About Us</NavLink></li>
-        <li><NavLink>Pricing</NavLink></li>
-        <li><NavLink>Be a Rider</NavLink></li>
-
+        
     </>
     return (
         <div className="navbar bg-base-100 py-5 px-8 rounded-2xl shadow-sm">
