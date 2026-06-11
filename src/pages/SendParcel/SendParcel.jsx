@@ -3,15 +3,15 @@ import { useLoaderData } from "react-router";
 
 
 const SendParcel = () => {
-    const { register, handleSubmit,control, formState: { errors } } = useForm();
+    const { register, handleSubmit, control, formState: { errors } } = useForm();
 
     const serviceCenters = useLoaderData();
     const regionsDuplicate = serviceCenters.map(c => c.region);
 
     const region = [...new Set(regionsDuplicate)];
-   
-    const senderSelectedRegion = useWatch({control, name: "senderRegion" });
-    const receiverSelectedRegion = useWatch({control, name: "receiverRegion" });
+
+    const senderSelectedRegion = useWatch({ control, name: "senderRegion" });
+    const receiverSelectedRegion = useWatch({ control, name: "receiverRegion" });
 
     const districtsByRegion = region => {
         const regionDistricts = serviceCenters.filter(d => d.region === region);
@@ -20,7 +20,25 @@ const SendParcel = () => {
     }
 
     const handleSendParcel = data => {
-        console.log(data);
+        const parcelWeight = data.parcelWeight;
+        const isSameDistrict = data.senderDistrict === data.receiverDistrict;
+
+        let cost = 0;
+        if (data.parcelType === "document") {
+            cost = isSameDistrict ? 60 : 80;
+        }
+        else {
+            if (parcelWeight <= 3) {
+                cost = isSameDistrict ? 110 : 150;
+            }
+            else {
+                const minCharge = isSameDistrict ? 110 : 150;
+                const extraWeight = parcelWeight - 3;
+                cost = isSameDistrict ? minCharge + extraWeight * 40 : minCharge + extraWeight * 40 + 40;
+            }
+        }
+        console.log(cost)
+
     }
 
     return (
@@ -30,11 +48,11 @@ const SendParcel = () => {
                 {/* parcel type */}
                 <div className="my-8 p-0">
                     <label className="label mr-4">
-                        <input type="radio" {...register('parcelType')} value="document" className="radio" defaultChecked />
+                        <input type="radio" {...register('parcelType', { required: true })} value="document" className="radio" defaultChecked />
                         Document
                     </label>
                     <label className="label">
-                        <input type="radio" {...register('parcelType')} value="not-document" className="radio" />
+                        <input type="radio" {...register('parcelType', { required: true })} value="not-document" className="radio" />
                         Not-Document
                     </label>
                 </div>
@@ -43,11 +61,14 @@ const SendParcel = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-black">
                     <fieldset className="fieldset">
                         <label className="label">Parcel Name</label>
-                        <input type="text" {...register('parcelName')} className="input w-full" placeholder="Parcel Name" />
+                        <input type="text" {...register('parcelName', { required: true })} className="input w-full" placeholder="Parcel Name" />
                     </fieldset>
                     <fieldset className="fieldset">
                         <label className="label">Parcel Weight (kg)</label>
-                        <input type="number" {...register('parcelWeight')} className="input w-full" placeholder="Parcel Weight" />
+                        <input
+                            type="number"
+                            step="any"
+                            {...register('parcelWeight', { required: true, valueAsNumber: true })} className="input w-full" placeholder="Parcel Weight" />
                     </fieldset>
                 </div>
 
@@ -59,14 +80,14 @@ const SendParcel = () => {
                             <h2 className="text-2xl mt-4 font-bold">Sender Details</h2>
 
                             <label className="label">Sender Name</label>
-                            <input type="text" {...register('senderName')} className="input w-full" placeholder="Sender Name" />
+                            <input type="text" {...register('senderName', { required: true })} className="input w-full" placeholder="Sender Name" />
 
                             <label className="label">Sender Email</label>
-                            <input type="email" {...register('senderEmail')} className="input w-full" placeholder="Sender Email" />
+                            <input type="email" {...register('senderEmail', { required: true })} className="input w-full" placeholder="Sender Email" />
 
                             <fieldset className="fieldset">
                                 <legend className="fieldset-legend">Sender Regions</legend>
-                                <select {...register('senderRegion')} defaultValue="Pick a region" className="select">
+                                <select {...register('senderRegion', { required: true })} defaultValue="Pick a region" className="select">
                                     <option disabled={true}>Pick a region</option>
                                     {
                                         region.map((r, index) => <option key={index} value={r}>{r}</option>)
@@ -76,7 +97,7 @@ const SendParcel = () => {
 
                             <fieldset className="fieldset">
                                 <legend className="fieldset-legend">Sender District</legend>
-                                <select {...register('senderDistrict')} defaultValue="Pick a District" className="select">
+                                <select {...register('senderDistrict', { required: true })} defaultValue="Pick a District" className="select">
                                     <option disabled={true}>Pick a District</option>
                                     {
                                         districtsByRegion(senderSelectedRegion).map((r, index) => <option key={index} value={r}>{r}</option>)
@@ -85,13 +106,13 @@ const SendParcel = () => {
                             </fieldset>
 
                             <label className="label">Sender Address</label>
-                            <input type="text" {...register('senderAddress')} className="input w-full" placeholder="Sender Address" />
+                            <input type="text" {...register('senderAddress', { required: true })} className="input w-full" placeholder="Sender Address" />
 
                             <label className="label mt-4">Sender Phone No</label>
-                            <input type="text" {...register('senderPhoneNum')} className="input w-full" placeholder="Sender phone no" />
+                            <input type="text" {...register('senderPhoneNum', { required: true })} className="input w-full" placeholder="Sender phone no" />
 
                             <label className="label mt-4">Pickup Instruction</label>
-                            <textarea className="textarea w-full" {...register('pickupInstruction')} rows={5} placeholder="Pickup Instruction"></textarea>
+                            <textarea className="textarea w-full" {...register('pickupInstruction', { required: true })} rows={5} placeholder="Pickup Instruction"></textarea>
                         </fieldset>
                     </div>
 
@@ -101,14 +122,14 @@ const SendParcel = () => {
                             <h2 className="text-2xl mt-4 font-bold">Receiver Details</h2>
 
                             <label className="label">Receiver Name</label>
-                            <input type="text" {...register('receiverName')} className="input w-full" placeholder="Receiver Name" />
+                            <input type="text" {...register('receiverName', { required: true })} className="input w-full" placeholder="Receiver Name" />
 
                             <label className="label">Receiver Email</label>
-                            <input type="email" {...register('receiverEmail')} className="input w-full" placeholder="Receiver Email" />
+                            <input type="email" {...register('receiverEmail', { required: true })} className="input w-full" placeholder="Receiver Email" />
 
                             <fieldset className="fieldset">
                                 <legend className="fieldset-legend">Receiver Regions</legend>
-                                <select {...register('receiverRegion')} defaultValue="Pick a region" className="select">
+                                <select {...register('receiverRegion', { required: true })} defaultValue="Pick a region" className="select">
                                     <option disabled={true}>Pick a region</option>
                                     {
                                         region.map((r, index) => <option key={index} value={r}>{r}</option>)
