@@ -1,5 +1,6 @@
 import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
+import Swal from "sweetalert2";
 
 
 const SendParcel = () => {
@@ -24,6 +25,7 @@ const SendParcel = () => {
         const isSameDistrict = data.senderDistrict === data.receiverDistrict;
 
         let cost = 0;
+
         if (data.parcelType === "document") {
             cost = isSameDistrict ? 60 : 80;
         }
@@ -37,7 +39,23 @@ const SendParcel = () => {
                 cost = isSameDistrict ? minCharge + extraWeight * 40 : minCharge + extraWeight * 40 + 40;
             }
         }
-        console.log(cost)
+
+        Swal.fire({
+            title: "Are you agree with the cost?",
+            text: `You will be charged ${cost} taka`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes!"
+        }).then((result) => {
+
+            // if (result.isConfirmed) Swal.fire({
+            //     title: "Deleted!",
+            //     text: "Your file has been deleted.",
+            //     icon: "success"
+            // });
+        });
 
     }
 
