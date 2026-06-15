@@ -1,10 +1,21 @@
 import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
 
 
 const SendParcel = () => {
-    const { register, handleSubmit, control, formState: { errors } } = useForm();
+    const {
+        register,
+        handleSubmit,
+        control,
+        //  formState: { errors }
+    } = useForm();
+
+    const { user } = useAuth();
+
+    const axiosSecure = useAxiosSecure();
 
     const serviceCenters = useLoaderData();
     const regionsDuplicate = serviceCenters.map(c => c.region);
@@ -49,12 +60,26 @@ const SendParcel = () => {
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes!"
         }).then((result) => {
-
-            // if (result.isConfirmed) Swal.fire({
-            //     title: "Deleted!",
-            //     text: "Your file has been deleted.",
-            //     icon: "success"
-            // });
+            if (result.isConfirmed) {
+                // save the parcel information in database
+                axiosSecure.post('/parcels', data)
+                    .then(res => {
+                        console.log("data after saving to the db ", res.data);
+                        Swal.fire({
+                            title: "Saved!",
+                            text: "Your parcel booking has been confirmed.",
+                            icon: "success"
+                        });
+                    })
+                    .catch(err => {
+                        console.error("Failed to save parcel:", err);
+                        Swal.fire({
+                            title: "Error",
+                            text: "Failed to save the parcel. Please try again.",
+                            icon: "error"
+                        });
+                    });
+            }
         });
 
     }
@@ -79,7 +104,7 @@ const SendParcel = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-black">
                     <fieldset className="fieldset">
                         <label className="label">Parcel Name</label>
-                        <input type="text" {...register('parcelName', { required: true })} className="input w-full" placeholder="Parcel Name" />
+                        <input type="text" defaultValue={user.displayName} {...register('parcelName', { required: true })} className="input w-full" placeholder="Parcel Name" />
                     </fieldset>
                     <fieldset className="fieldset">
                         <label className="label">Parcel Weight (kg)</label>
@@ -101,7 +126,7 @@ const SendParcel = () => {
                             <input type="text" {...register('senderName', { required: true })} className="input w-full" placeholder="Sender Name" />
 
                             <label className="label">Sender Email</label>
-                            <input type="email" {...register('senderEmail', { required: true })} className="input w-full" placeholder="Sender Email" />
+                            <input type="email" defaultValue={user.email} {...register('senderEmail', { required: true })} className="input w-full" placeholder="Sender Email" />
 
                             <fieldset className="fieldset">
                                 <legend className="fieldset-legend">Sender Regions</legend>
