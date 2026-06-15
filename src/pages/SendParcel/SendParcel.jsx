@@ -104,7 +104,7 @@ const SendParcel = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-black">
                     <fieldset className="fieldset">
                         <label className="label">Parcel Name</label>
-                        <input type="text" defaultValue={user.displayName} {...register('parcelName', { required: true })} className="input w-full" placeholder="Parcel Name" />
+                        <input type="text" {...register('parcelName', { required: true })} className="input w-full" placeholder="Parcel Name" />
                     </fieldset>
                     <fieldset className="fieldset">
                         <label className="label">Parcel Weight (kg)</label>
@@ -123,7 +123,7 @@ const SendParcel = () => {
                             <h2 className="text-2xl mt-4 font-bold">Sender Details</h2>
 
                             <label className="label">Sender Name</label>
-                            <input type="text" {...register('senderName', { required: true })} className="input w-full" placeholder="Sender Name" />
+                            <input type="text" defaultValue={user.displayName} {...register('senderName', { required: true })} className="input w-full" placeholder="Sender Name" />
 
                             <label className="label">Sender Email</label>
                             <input type="email" defaultValue={user.email} {...register('senderEmail', { required: true })} className="input w-full" placeholder="Sender Email" />
