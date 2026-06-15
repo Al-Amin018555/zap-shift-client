@@ -11,7 +11,12 @@ const Navbar = () => {
         <li><NavLink to='/send-parcel'>Send Parcel</NavLink></li>
         <li><NavLink to='/coverage'>Coverage</NavLink></li>
         <li><NavLink to='/aboutUs'>About Us</NavLink></li>
-        
+        {
+            user && <>
+                <li><NavLink to='/dashboard/my-parcels'>My Parcels</NavLink></li>
+            </>
+        }
+
     </>
     return (
         <div className="navbar bg-base-100 py-5 px-8 rounded-2xl shadow-sm">
