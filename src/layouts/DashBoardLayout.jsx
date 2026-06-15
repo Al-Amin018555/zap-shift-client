@@ -15,7 +15,7 @@ const DashBoardLayout = () => {
                 </nav>
                 {/* Page content here */}
                 <Outlet></Outlet>
-                <div className="p-4">Page Content</div>
+               
             </div>
 
             <div className="drawer-side is-drawer-close:overflow-visible">
