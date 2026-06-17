@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { FaMagnifyingGlass, FaTrashCan } from "react-icons/fa6";
 import { FiEdit } from "react-icons/fi";
 import Swal from "sweetalert2";
+import { Link } from "react-router";
 
 const MyParcels = () => {
 
@@ -58,8 +59,9 @@ const MyParcels = () => {
                         <tr>
                             <th></th>
                             <th>Name</th>
-                            <th>cost</th>
-                            <th>Parcel Status</th>
+                            <th>Cost</th>
+                            <th>Payment</th>
+                            <th>Delivery Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -70,6 +72,16 @@ const MyParcels = () => {
                                     <th>{index + 1}</th>
                                     <td>{parcel.parcelName}</td>
                                     <td>{parcel.cost}</td>
+                                    <td>
+                                        {
+                                            parcel.paymentStatus === "paid" ?
+                                                <span className="text-green-400">Paid</span>
+                                                :
+                                                <Link to={`/dashboard/parcels/${parcel._id}`}>
+                                                    <button className="btn btn-sm btn-primary">Pay</button>
+                                                </Link>
+                                        }
+                                    </td>
                                     <td>Blue</td>
                                     <td>
                                         <button className="btn btn-square hover:bg-primary">
