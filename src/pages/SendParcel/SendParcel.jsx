@@ -51,6 +51,7 @@ const SendParcel = () => {
             }
         }
 
+
         Swal.fire({
             title: "Are you agree with the cost?",
             text: `You will be charged ${cost} taka`,
@@ -61,10 +62,11 @@ const SendParcel = () => {
             confirmButtonText: "Yes!"
         }).then((result) => {
             if (result.isConfirmed) {
+                data.cost = cost;
                 // save the parcel information in database
                 axiosSecure.post('/parcels', data)
                     .then(res => {
-                        console.log("data after saving to the db ", res.data);
+                        console.log("data after saving to the db ", res);
                         Swal.fire({
                             title: "Saved!",
                             text: "Your parcel booking has been confirmed.",
