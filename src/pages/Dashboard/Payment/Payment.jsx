@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const Payment = () => {
-    
+
     const { parcelId } = useParams();
     const axiosSecure = useAxiosSecure();
 
@@ -20,11 +20,27 @@ const Payment = () => {
             <span className="loading loading-spinner loading-xl"></span>
         </div>;
     }
+
+    const handlePayment = async () => {
+
+        const paymentInfo = {
+            cost: parcel.cost,
+            senderEmail: parcel.senderEmail,
+            parcelId: parcel._id,
+            parcelName: parcel.parcelName,
+        }
+        const res = await axiosSecure.post('/create-checkout-session', paymentInfo);
+
+        window.location.href = res.data.url;
+    }
+
     return (
         <div>
-            <p>Please Pay</p>
-            <p>Parcel Name : {parcel.parcelName}</p>
-            <button className="btn btn-primary">Pay</button>
+            <p>Please pay ${parcel.cost} for: {parcel.parcelName}</p>
+
+            <button
+                onClick={handlePayment}
+                className="btn btn-primary">Pay</button>
         </div>
     );
 };

@@ -35,7 +35,7 @@ const DashBoardLayout = () => {
 
                         {/* our list items */}
                         <li>
-                              <NavLink className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
+                              <NavLink to="/dashboard/my-parcels" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
                                 {/* Settings icon */}
                                 <CiDeliveryTruck size={20}></CiDeliveryTruck>
                                  <span className="is-drawer-close:hidden">My Parcels</span>
