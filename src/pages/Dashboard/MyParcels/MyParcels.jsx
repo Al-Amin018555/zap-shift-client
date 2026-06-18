@@ -50,6 +50,22 @@ const MyParcels = () => {
 
         });
     }
+
+    // const handlePayment = async (parcel) => {
+    //     const paymentInfo = {
+    //         cost: parcel.cost,
+    //         name: parcel.parcelName,
+    //         parcelId: parcel._id,
+    //         senderEmail: parcel.senderEmail,
+    //     };
+
+    //     const res = await axiosSecure.post('/payment-checkout-session',paymentInfo);
+
+    //     console.log(res.data.url);
+
+    //     window.location.href = res.data.url;
+    // }
+
     return (
         <div>
             <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 m-8 rounded-2xl">
@@ -80,6 +96,14 @@ const MyParcels = () => {
                                                 <Link to={`/dashboard/parcels/${parcel._id}`}>
                                                     <button className="btn btn-sm btn-primary">Pay</button>
                                                 </Link>
+
+                                                // <button
+                                                //     onClick={() => handlePayment(parcel)}
+                                                //     className="btn btn-sm btn-primary"
+                                                // >
+                                                //     Pay
+                                                // </button>
+
                                         }
                                     </td>
                                     <td>Blue</td>
