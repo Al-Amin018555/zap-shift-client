@@ -39,7 +39,7 @@ const PaymentHistory = () => {
                                 <td>{payment.parcelName}</td>
                                 <td>Quality Control Specialist</td>
                                 <td>{payment.transactionId}</td>
-                                <td>${payment.amount}</td>
+                                <td>{payment.amount}</td>
                                 <td>Blue</td>
                             </tr>)
                         }
