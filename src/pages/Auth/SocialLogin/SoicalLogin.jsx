@@ -1,16 +1,28 @@
 import { useLocation, useNavigate } from "react-router";
 import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const SoicalLogin = () => {
     const { googleSignIn } = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
+    const axiosSecure = useAxiosSecure();
 
     const handleGoogleLogin = () => {
         googleSignIn()
-            .then(res => {
-                console.log(res)
-                navigate(location?.state || "/")
+            .then((result) => {
+
+                //create user in the database
+                const userInfo = {
+                    displayName: result.user.displayName,
+                    email: result.user.email,
+                    photoURL: result.user.photoURL,
+                };
+                axiosSecure.post("/users", userInfo)
+                    .then(res => {
+                        console.log(res.data);
+                        navigate(location?.state || "/")
+                    })
             })
             .catch(err => console.log(err))
     }
