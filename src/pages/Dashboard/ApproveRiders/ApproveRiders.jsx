@@ -21,7 +21,7 @@ const ApproveRiders = () => {
         console.log(rider, status);
         axiosSecure.patch(`/riders/${rider._id}`, updateInfo)
             .then(res => {
-               
+
                 if (res.data.modifiedCount) {
                     refetch()
                     Swal.fire({
@@ -41,6 +41,21 @@ const ApproveRiders = () => {
     }
     const handleRejection = rider => {
         updateRiderStatus(rider, "rejected");
+    }
+    const handleDeleteRider = id => {
+        axiosSecure.delete(`/riders/${id}`)
+            .then(res => {
+                if (res.data.deletedCount) {
+                    refetch()
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `Rider has deleted successfully`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            })
     }
     return (
         <div>
@@ -85,7 +100,9 @@ const ApproveRiders = () => {
                                         className="btn mx-2 hover:btn-primary">
                                         <IoPersonRemoveSharp />
                                     </button>
-                                    <button className="btn hover:btn-primary">
+                                    <button
+                                        onClick={() => handleDeleteRider(rider._id)}
+                                        className="btn hover:btn-primary">
                                         <FaTrashCan />
                                     </button>
 
