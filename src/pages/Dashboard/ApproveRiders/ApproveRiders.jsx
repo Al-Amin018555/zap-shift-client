@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { FaUserCheck } from "react-icons/fa";
+import { FaEye, FaUserCheck } from "react-icons/fa";
 import { IoPersonRemoveSharp } from "react-icons/io5";
 import { FaTrashCan } from "react-icons/fa6";
 import Swal from "sweetalert2";
@@ -95,9 +95,33 @@ const ApproveRiders = () => {
                                         className="btn hover:btn-primary">
                                         <FaUserCheck />
                                     </button>
+
+                                    <button className="btn" onClick={() => document.getElementById(`modal-${rider._id}`).showModal()}> <FaEye /></button>
+
+                                    {/* Open the modal using document.getElementById('ID').showModal() method */}
+                                    <dialog id={`modal-${rider._id}`} className="modal modal-bottom sm:modal-middle">
+                                        <div className="modal-box space-y-2">
+                                            <p>Name : {rider.name}</p>
+                                            <p>Driving License Number : {rider.drivingLicenseNum}</p>
+                                            <p>Region : {rider.riderRegion}</p>
+                                            <p>Rider District : {rider.riderDistrict}</p>
+                                            <p>Rider NID : {rider.nid}</p>
+                                            <p>Phone Num : {rider.phoneNum}</p>
+                                            <p>Bike Registration No : {rider.bikeRegNum}</p>
+
+                                            <div className="modal-action">
+                                                <form method="dialog">
+                                                    {/* if there is a button in form, it will close the modal */}
+                                                    <button className="btn">Close</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </dialog>
+
                                     <button
+
                                         onClick={() => handleRejection(rider)}
-                                        className="btn mx-2 hover:btn-primary">
+                                        className="btn hover:btn-primary">
                                         <IoPersonRemoveSharp />
                                     </button>
                                     <button
