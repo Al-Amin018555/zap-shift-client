@@ -17,12 +17,11 @@ const UsersManagement = () => {
     const handleUserRole = (user, role) => {
         console.log(user, role);
         const roleInfo = { role: role };
-        axiosSecure.patch(`/users/${user._id}`, roleInfo)
+        axiosSecure.patch(`/users/${user._id}/role`, roleInfo)
             .then(res => {
-
+        
                 if (res.data.modifiedCount) {
                     refetch()
-
                     const message =
                         role === "admin"
                             ? `${user.displayName} made as an Admin`

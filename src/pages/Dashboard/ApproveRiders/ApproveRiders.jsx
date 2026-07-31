@@ -21,7 +21,7 @@ const ApproveRiders = () => {
         console.log(rider, status);
         axiosSecure.patch(`/riders/${rider._id}`, updateInfo)
             .then(res => {
-
+               
                 if (res.data.modifiedCount) {
                     refetch()
                     Swal.fire({
