@@ -21,7 +21,7 @@ const ApproveRiders = () => {
         console.log(rider, status);
         axiosSecure.patch(`/riders/${rider._id}`, updateInfo)
             .then(res => {
-               
+                
                 if (res.data.modifiedCount) {
                     refetch()
                     Swal.fire({
@@ -39,9 +39,11 @@ const ApproveRiders = () => {
         updateRiderStatus(rider, "approved");
 
     }
+
     const handleRejection = rider => {
         updateRiderStatus(rider, "rejected");
     }
+
     const handleDeleteRider = id => {
         axiosSecure.delete(`/riders/${id}`)
             .then(res => {
@@ -57,6 +59,7 @@ const ApproveRiders = () => {
                 }
             })
     }
+
     return (
         <div>
             <h2 className="text-5xl">Riders Pending Approval: {riders.length}</h2>
@@ -69,7 +72,8 @@ const ApproveRiders = () => {
                             <th>Name</th>
                             <th>Email</th>
                             <th>District</th>
-                            <th>Status</th>
+                            <th>Application Status</th>
+                            <th>Work Status</th>
                             <th>Actions</th>
 
                         </tr>
@@ -81,7 +85,7 @@ const ApproveRiders = () => {
                                 <th>{index + 1}</th>
                                 <td>{rider.name}</td>
                                 <td>{rider.email}</td>
-                                <td>{rider.riderDistrict}</td>
+                                <td>{rider.riderDistrict}</td>                           
                                 <td>
                                     <p className={`${rider.status === "approved" ?
                                         "text-green-500" : "text-red-500"}`}>
@@ -89,6 +93,7 @@ const ApproveRiders = () => {
                                     </p>
 
                                 </td>
+                                  <td>{rider.workStatus}</td>
                                 <td>
                                     <button
                                         onClick={() => handleApproval(rider)}
@@ -119,7 +124,6 @@ const ApproveRiders = () => {
                                     </dialog>
 
                                     <button
-
                                         onClick={() => handleRejection(rider)}
                                         className="btn hover:btn-primary">
                                         <IoPersonRemoveSharp />
