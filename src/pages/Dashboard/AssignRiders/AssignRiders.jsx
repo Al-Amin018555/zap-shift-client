@@ -40,7 +40,7 @@ const AssignRiders = () => {
             parcelId: selectedParcel._id,
         }
 
-        axiosSecure.patch(`/parcels/${selectedParcel._id}`, assignRiderInfo)
+        axiosSecure.patch(`/parcels/${selectedParcel._id}/assign`, assignRiderInfo)
             .then(res => {
                 if (res.data.modifiedCount) {
                     modalRef.current.close();
