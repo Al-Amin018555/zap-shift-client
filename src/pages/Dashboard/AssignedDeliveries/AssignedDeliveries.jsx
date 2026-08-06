@@ -61,7 +61,7 @@ const AssignedDeliveries = () => {
                             <th></th>
                             <th>Name</th>
                             <th>Confirm</th>
-                            <th>Favorite Color</th>
+                            <th>Other Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,12 +70,16 @@ const AssignedDeliveries = () => {
                                 <th>{i + 1}</th>
                                 <td>{parcel.parcelName}</td>
                                 <td className="space-x-2">
-                                    <button
-                                        onClick={() => handleAcceptDelivery(parcel)}
-                                        className="btn btn-primary">Accept</button>
-                                    <button
-                                        onClick={() => handleRejectDelivery(parcel)}
-                                        className="btn btn-warning">Reject</button>
+                                    {
+                                        parcel.deliveryStatus === 'driver_assigned' ? <>
+                                            <button
+                                                onClick={() => handleAcceptDelivery(parcel)}
+                                                className="btn btn-primary">Accept</button>
+                                            <button
+                                                onClick={() => handleRejectDelivery(parcel)}
+                                                className="btn btn-warning">Reject</button>
+                                        </> : <span>Accepted</span>
+                                  }
                                 </td>
                                 <td>Blue</td>
                             </tr>)
