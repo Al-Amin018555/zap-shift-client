@@ -42,7 +42,7 @@ const AssignRiders = () => {
 
         axiosSecure.patch(`/parcels/${selectedParcel._id}/assign`, assignRiderInfo)
             .then(res => {
-                if (res.data.modifiedCount) {
+                if (res.data.success) {
                     modalRef.current.close();
                     parcelsRefetch();
                     Swal.fire({

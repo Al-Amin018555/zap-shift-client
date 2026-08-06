@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const AssignedDeliveries = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
-    const { data: parcels = [] } = useQuery({
+    const { data: parcels = [], refetch } = useQuery({
         queryKey: ['parcels', user.email, 'driver_assigned'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/parcels/rider?riderEmail=${user.email}&deliveryStatus=driver_assigned`);
@@ -13,6 +14,42 @@ const AssignedDeliveries = () => {
             return res.data;
         }
     });
+
+    const handleAcceptDelivery = parcel => {
+        const statusInfo = { deliveryStatus: 'rider_arriving' };
+
+        axiosSecure.patch(`/parcels/${parcel._id}/status`, statusInfo)
+            .then(res => {
+                if (res.data.modifiedCount) {
+                    refetch()
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `Thank you for accepting`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            })
+    }
+
+    const handleRejectDelivery = parcel => {
+        console.log(parcel.riderId)
+        axiosSecure.patch(`/parcels/${parcel._id}/reject`)
+            .then(res => {
+                if (res.data.success) {
+                    refetch()
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: `Parcel Rejected Successfully`,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            })
+
+    }
     return (
         <div>
             <h2 className="text-4xl">Parcels Pending Pickup: {parcels.length} </h2>
@@ -33,8 +70,12 @@ const AssignedDeliveries = () => {
                                 <th>{i + 1}</th>
                                 <td>{parcel.parcelName}</td>
                                 <td className="space-x-2">
-                                    <button className="btn btn-primary">Accept</button>
-                                    <button className="btn btn-warning">Reject</button>
+                                    <button
+                                        onClick={() => handleAcceptDelivery(parcel)}
+                                        className="btn btn-primary">Accept</button>
+                                    <button
+                                        onClick={() => handleRejectDelivery(parcel)}
+                                        className="btn btn-warning">Reject</button>
                                 </td>
                                 <td>Blue</td>
                             </tr>)
