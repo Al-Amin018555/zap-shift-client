@@ -4,6 +4,7 @@ import { Link, NavLink, Outlet } from "react-router";
 import useRole from "../hooks/useRole";
 import { RiEBikeFill } from "react-icons/ri";
 import { MdDeliveryDining} from "react-icons/md";
+import { SiGoogletasks } from "react-icons/si";
 
 const DashBoardLayout = () => {
     const { role } = useRole();
@@ -61,6 +62,12 @@ const DashBoardLayout = () => {
                                     <NavLink to="/dashboard/assigned-deliveries" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Assigned Deliveries">
                                         <MdDeliveryDining size={20} />
                                         <span className="is-drawer-close:hidden">Assigned Deliveries</span>
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/completed-deliveries" className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Completed Deliveries">
+                                        <SiGoogletasks size={20} />
+                                        <span className="is-drawer-close:hidden">Completed Deliveries</span>
                                     </NavLink>
                                 </li>
                             </>

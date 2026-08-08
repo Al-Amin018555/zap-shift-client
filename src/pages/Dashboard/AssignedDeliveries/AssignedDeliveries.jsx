@@ -16,8 +16,11 @@ const AssignedDeliveries = () => {
     });
 
     const handleDeliveryStatus = (parcel, status) => {
-        const statusInfo = { deliveryStatus: status };
-        console.log(status);
+        const statusInfo = {
+            deliveryStatus: status,
+            riderId: parcel.riderId
+        };
+
         let message = `Parcel status is updated with ${status.split('_').join(' ')}`
         axiosSecure.patch(`/parcels/${parcel._id}/status`, statusInfo)
             .then(res => {
@@ -74,7 +77,7 @@ const AssignedDeliveries = () => {
                                     {
                                         parcel.deliveryStatus === 'driver_assigned' ? <>
                                             <button
-                                                onClick={() => handleDeliveryStatus(parcel,"rider_arriving")}
+                                                onClick={() => handleDeliveryStatus(parcel, "rider_arriving")}
                                                 className="btn btn-primary">Accept</button>
                                             <button
                                                 onClick={() => handleRejectDelivery(parcel)}
@@ -84,10 +87,10 @@ const AssignedDeliveries = () => {
                                 </td>
                                 <td>
                                     <button
-                                        onClick={() => handleDeliveryStatus(parcel,'parcel_picked_up')}
+                                        onClick={() => handleDeliveryStatus(parcel, 'parcel_picked_up')}
                                         className="btn btn-primary">Mark as Picked Up</button>
                                     <button
-                                        onClick={() => handleDeliveryStatus(parcel,'parcel_delivered')}
+                                        onClick={() => handleDeliveryStatus(parcel, 'parcel_delivered')}
                                         className="btn btn-primary mx-2">Mark as Delivered</button>
                                 </td>
                             </tr>)
