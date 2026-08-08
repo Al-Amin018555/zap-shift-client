@@ -4,9 +4,11 @@ import { useRef, useState } from "react";
 import Swal from "sweetalert2";
 
 const AssignRiders = () => {
+    
     const axiosSecure = useAxiosSecure();
     const modalRef = useRef();
     const [selectedParcel, setSelectedParcel] = useState(null);
+
     const { data: parcels = [], refetch: parcelsRefetch } = useQuery({
         queryKey: ['parcels', 'pending-pickup'],
         queryFn: async () => {
@@ -21,7 +23,6 @@ const AssignRiders = () => {
         enabled: !!selectedParcel,
         queryFn: async () => {
             const res = await axiosSecure.get(`/riders?status=approved&riderDistrict=${selectedParcel?.senderDistrict}&workStatus=available`);
-            console.log(res.data)
             return res.data;
         }
 
@@ -38,7 +39,9 @@ const AssignRiders = () => {
             riderName: rider.name,
             riderEmail: rider.email,
             parcelId: selectedParcel._id,
+            trackingId: selectedParcel.trackingId,
         }
+        console.log(assignRiderInfo.trackingId)
 
         axiosSecure.patch(`/parcels/${selectedParcel._id}/assign`, assignRiderInfo)
             .then(res => {

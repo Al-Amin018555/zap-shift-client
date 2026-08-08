@@ -22,8 +22,7 @@ const MyParcels = () => {
     })
 
     const handleParcelDelete = id => {
-        console.log(id);
-
+    
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -51,6 +50,7 @@ const MyParcels = () => {
         });
     }
 
+    //moved this part to payment component
     // const handlePayment = async (parcel) => {
     //     const paymentInfo = {
     //         cost: parcel.cost,
@@ -98,16 +98,16 @@ const MyParcels = () => {
                                                     <button className="btn btn-sm btn-primary">Pay</button>
                                                 </Link>
 
-                                                // <button
-                                                //     onClick={() => handlePayment(parcel)}
-                                                //     className="btn btn-sm btn-primary"
-                                                // >
-                                                //     Pay
-                                                // </button>
+                                            // <button
+                                            //     onClick={() => handlePayment(parcel)}
+                                            //     className="btn btn-sm btn-primary"
+                                            // >
+                                            //     Pay
+                                            // </button>
 
                                         }
                                     </td>
-                                    <td>{parcel.trackingId}</td>
+                                    <td><Link to={`/parcel-track/${parcel.trackingId}`}>{parcel.trackingId}</Link></td>
                                     <td>{parcel.deliveryStatus}</td>
                                     <td>
                                         <button className="btn btn-square hover:bg-primary">
