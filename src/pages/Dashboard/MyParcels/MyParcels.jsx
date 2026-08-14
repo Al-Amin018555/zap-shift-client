@@ -22,7 +22,7 @@ const MyParcels = () => {
     })
 
     const handleParcelDelete = id => {
-    
+
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -50,21 +50,21 @@ const MyParcels = () => {
         });
     }
 
-    //moved this part to payment component
-    // const handlePayment = async (parcel) => {
-    //     const paymentInfo = {
-    //         cost: parcel.cost,
-    //         name: parcel.parcelName,
-    //         parcelId: parcel._id,
-    //         senderEmail: parcel.senderEmail,
-    //     };
 
-    //     const res = await axiosSecure.post('/payment-checkout-session',paymentInfo);
+    const handlePayment = async (parcel) => {
+        const paymentInfo = {
+            cost: parcel.cost,
+            parcelName: parcel.parcelName,
+            parcelId: parcel._id,
+            senderEmail: parcel.senderEmail,
+            trackingId: parcel.trackingId,
 
-    //     console.log(res.data.url);
+        };
 
-    //     window.location.href = res.data.url;
-    // }
+        const res = await axiosSecure.post('/create-checkout-session', paymentInfo);
+
+        window.location.href = res.data.url;
+    }
 
     return (
         <div>
@@ -94,16 +94,12 @@ const MyParcels = () => {
                                             parcel.paymentStatus === "paid" ?
                                                 <span className="text-green-400">Paid</span>
                                                 :
-                                                <Link to={`/dashboard/parcels/${parcel._id}`}>
-                                                    <button className="btn btn-sm btn-primary">Pay</button>
-                                                </Link>
-
-                                            // <button
-                                            //     onClick={() => handlePayment(parcel)}
-                                            //     className="btn btn-sm btn-primary"
-                                            // >
-                                            //     Pay
-                                            // </button>
+                                                <button
+                                                    onClick={() => handlePayment(parcel)}
+                                                    className="btn btn-sm btn-primary"
+                                                >
+                                                    Pay
+                                                </button>
 
                                         }
                                     </td>

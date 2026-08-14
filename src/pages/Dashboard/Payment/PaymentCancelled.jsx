@@ -6,7 +6,7 @@ const PaymentCancelled = () => {
             <h2>Payment is cancelled. Please try again
             </h2>
             <Link clas to="/dashboard/my-parcels">
-            <button className="btn btn-primary">Try again</button>
+                <button className="btn btn-primary">Try again</button>
             </Link>
         </div>
     );

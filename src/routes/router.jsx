@@ -12,9 +12,6 @@ import Rider from "../pages/Rider/Rider";
 import SendParcel from "../pages/SendParcel/SendParcel";
 import DashBoardLayout from "../layouts/DashBoardLayout";
 import MyParcels from "../pages/Dashboard/MyParcels/MyParcels";
-import Payment from "../pages/Dashboard/Payment/Payment";
-import PaymentSuccess from "../pages/Dashboard/Payment/PaymentSuccess";
-import PaymentCancelled from "../pages/Dashboard/Payment/PaymentCancelled";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
 import ApproveRiders from "../pages/Dashboard/ApproveRiders/ApproveRiders";
 import UsersManagement from "../pages/Dashboard/UsersManagement/UsersManagement";
@@ -24,6 +21,9 @@ import RiderRoute from "./RiderRoute";
 import AssignedDeliveries from "../pages/Dashboard/AssignedDeliveries/AssignedDeliveries";
 import CompletedDeliveries from "../pages/Dashboard/CompletedDeliveries/CompletedDeliveries";
 import ParcelTrack from "../pages/ParcelTrack/ParcelTrack";
+import PaymentSuccess from "../pages/Dashboard/Payment/PaymentSuccess";
+import PaymentCancelled from "../pages/Dashboard/Payment/PaymentCancelled";
+import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 
 export const router = createBrowserRouter([
   {
@@ -76,13 +76,14 @@ export const router = createBrowserRouter([
     element: <PrivateRoutes><DashBoardLayout></DashBoardLayout></PrivateRoutes>,
     children: [
       {
+        index: true,
+        Component: DashboardHome,
+      },
+      {
         path: 'my-parcels',
         Component: MyParcels,
       },
-      {
-        path: 'parcels/:parcelId',
-        Component: Payment
-      },
+
       {
         path: 'payment-success',
         Component: PaymentSuccess,
